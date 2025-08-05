@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Перевірка віку</title>
+</head>
+<body>
+    <script>
+        let age = prompt('Скільки тобі років?');
+        let realAge = Number(age);
+        let mod10 = realAge % 10;
+        let mod100 = realAge % 100;
+
+        if (!isNaN(realAge) && Number.isInteger(realAge) && realAge > 0) {
+            if (mod10 === 1 && mod100 !== 11) {
+                alert(`${realAge} рік`);
+            } else if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
+                alert(`${realAge} роки`);
+            } else {
+                alert(`${realAge} років`);
+            }
+        } else {
+            alert('Упс...Будь ласка, введи ціле додатне число.');
+        }
+    </script>
+</body>
+</html>
