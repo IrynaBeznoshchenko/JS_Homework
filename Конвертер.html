@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="result"></p> <!-- Тут з’явиться результат -->
+
+<script>
+let unit = "кілометри"; // "кілометри", "години", "кілограми"
+let amount = 10;        // кількість
+
+let resultText = ""; // змінна для збереження тексту результату
+
+switch (unit) {
+    case "кілометри":
+        resultText = `${amount} км це ${amount * 1000} м`;
+        break;
+
+    case "години":
+        resultText = `${amount} год це ${amount * 60} хв`;
+        break;
+
+    case "кілограми":
+        resultText = `${amount} кг це ${amount * 1000} г`;
+        break;
+
+    default:
+        resultText = `Невідома одиниця виміру`;
+}
+
+document.getElementById("result").textContent = resultText;
+</script>
+
+</body>
+</html>
