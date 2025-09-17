@@ -102,41 +102,34 @@ const company = {
         }
     ]
 };
-// Функція пошуку компанії за ім'ям
-function findValueByKey(company, companyName) {
-    // Повертаємо назву компанії, якщо відповідає назві,яку шукаємо
+
+// Універсальна функція пошуку компанії з шляхом
+function findValueWithPath(company, companyName, path = []) {
+    let currentPath = [...path, company.name];
+
     if (company.name === companyName) {
-        return company;
+        return { company, path: currentPath };
     }
 
-    // Якщо у компанії є клієнти — перевіряємо їх рекурсивно
-    if (company.clients) {
-        for (let client of company.clients) {
-            const found = findValueByKey(client, companyName);
-            if (found) return found;
+    for (let key in company) {
+        if (Array.isArray(company[key])) {
+            for (let item of company[key]) {
+                const found = findValueWithPath(item, companyName, currentPath);
+                if (found) return found;
+            }
         }
     }
 
-    // Якщо у компанії є партнери — теж перевіряємо їх
-    if (company.partners) {
-        for (let partner of company.partners) {
-            const found = findValueByKey(partner, companyName);
-            if (found) return found;
-        }
-    }
-
-    // Якщо нічого не знайшли
     return null;
 }
 
+// Функція для красивого виводу
+function logResult(result) {
+    console.log(JSON.stringify(result, null, 2));
+}
 
 // Приклади використання
-console.log(findValueByKey(company, "Клієнт 1.2"));
-
-console.log(findValueByKey(company, "Велика Компанія"));
-
-console.log(findValueByKey(company, "Клієнт 2"));
-
-console.log(findValueByKey(company, "SuperCompany"));
-
-
+logResult(findValueWithPath(company, "SuperCompany"));
+logResult(findValueWithPath(company, "Клієнт 2"));
+logResult(findValueWithPath(company, "Клієнт 1.2"));
+logResult(findValueWithPath(company, "Велика Компанія"));
